@@ -1,56 +1,68 @@
-Half Adder and Full Adder Fundamentals
-This repository covers the foundational digital logic circuits used for binary addition: Half Adder and Full Adder. These are essential building blocks in arithmetic logic units (ALUs), processors, and computer architecture.
+# Binary Adders: Theory and Logic
 
-Half Adder Theory
-A Half Adder adds two single-bit binary numbers (A and B) and produces two outputs:
+This repository contains the fundamental logic and design principles for **Half Adders** and **Full Adders**, the building blocks of digital arithmetic.
 
-Sum (S): The result of A XOR B
+---
 
-Carry-out (C_out): The result of A AND B
+## 1. Half Adder
 
-Key Equations:
+### Theory
+A **Half Adder** is a combinational logic circuit that performs the addition of two single-bit binary numbers. It is the simplest form of an adder but has a significant limitation: it does not have an input for a "Carry" from a previous stage.
 
-text
-S = A ⊕ B    (XOR)
-C_out = A ∧ B  (AND)
+It produces two outputs:
+1.  **Sum (S):** Represents the least significant bit of the addition.
+2.  **Carry (C):** Represents the overflow bit.
 
-Full Adder Theory
-A Full Adder adds three single-bit binary numbers: two inputs (A, B) and a carry-in (C_in). It produces:
 
-Sum (S): XOR of all three inputs
 
-Carry-out (C_out): Majority function of inputs
+[Image of half adder circuit diagram and logic gates]
 
-Key Equations:
 
-text
-S = A ⊕ B ⊕ C_in
-C_out = (A ∧ B) ∨ (B ∧ C_in) ∨ (A ∧ C_in)
-Block Diagram:
+### Truth Table
+| Input A | Input B | Sum (S) | Carry (C) |
+| :---: | :---: | :---: | :---: |
+| 0 | 0 | 0 | 0 |
+| 0 | 1 | 1 | 0 |
+| 1 | 0 | 1 | 0 |
+| 1 | 1 | 0 | 1 |
 
-text
-A ─────┬─────┬───── XOR ──── XOR ──── S
-       │     │                │
-       AND   AND              │
-       │     │                │
-B ─────┼─────┼───── XOR ──────┼───── C_out
-       │     │      (C_in)    │
-       AND              OR ───┘
-       │
-C_in ──┘
-Full Adder Truth Table
-A	B	C_in	Sum (S)	Carry (C_out)
-0	0	0	0	0
-0	0	1	1	0
-0	1	0	1	0
-0	1	1	0	1
-1	0	0	1	0
-1	0	1	0	1
-1	1	0	0	1
-1	1	1	1	1
-Key Differences
-Feature	Half Adder	Full Adder
-Inputs	2 (A, B)	3 (A, B, C_in)
-Carry Input	No	Yes
-Applications	Single-bit addition	Multi-bit addition
-Gates Required	2 (XOR + AND)	5 (2 XOR + 3 AND + OR)
+### Boolean Expressions
+- **Sum:** $S = A \oplus B$ (XOR Gate)
+- **Carry:** $C = A \cdot B$ (AND Gate)
+
+---
+
+## 2. Full Adder
+
+### Theory
+A **Full Adder** is a digital circuit that adds three bits: two significant bits ($A$ and $B$) and a **Carry-in ($C_{in}$)** from a previous addition. This capability allows Full Adders to be cascaded (connected in series) to add multi-bit binary numbers (e.g., 4-bit or 8-bit ripple carry adders).
+
+A Full Adder is typically constructed using two Half Adders and an OR gate.
+
+
+
+### Truth Table
+| Input A | Input B | Carry-In ($C_{in}$) | Sum (S) | Carry-Out ($C_{out}$) |
+| :---: | :---: | :---: | :---: | :---: |
+| 0 | 0 | 0 | 0 | 0 |
+| 0 | 0 | 1 | 1 | 0 |
+| 0 | 1 | 0 | 1 | 0 |
+| 0 | 1 | 1 | 0 | 1 |
+| 1 | 0 | 0 | 1 | 0 |
+| 1 | 0 | 1 | 0 | 1 |
+| 1 | 1 | 0 | 0 | 1 |
+| 1 | 1 | 1 | 1 | 1 |
+
+### Boolean Expressions
+- **Sum:** $S = A \oplus B \oplus C_{in}$
+- **Carry-Out:** $C_{out} = (A \cdot B) + (C_{in} \cdot (A \oplus B))$
+
+---
+
+## Key Differences
+
+| Feature | Half Adder | Full Adder |
+| :--- | :--- | :--- |
+| **Inputs** | 2 bits | 3 bits (includes $C_{in}$) |
+| **Usage** | Addition of LSB only | Addition of all other bits |
+| **Components** | 1 XOR, 1 AND | 2 XOR, 2 AND, 1 OR |
